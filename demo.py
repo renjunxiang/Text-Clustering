@@ -1,33 +1,3 @@
-# Text-Clustering
-
-## 语言
-Python3.5<br>
-## 依赖库
-requests=2.18.4<br>
-pandas=0.21.0<br>
-numpy=1.13.1<br>
-matplotlib=2.1.0<br>
-jieba=0.39<br>
-gensim=3.2.0<br>
-scikit-learn=0.19.1<br>
-
-
-## 项目介绍
-利用非监督学习的方法进行文本聚类及可视化，从而实现探索功能，是对上一个项目Sentiment-analysis的补充。
-
-## 用法简介
-该模块包含：<br>
-1.通过结巴分词，计算词频；<br>
-2.计算共现矩阵<br>
-3.通过gensim模块创建词向量词包<br>
-4.构建高频词的维度矩阵<br>
-5.通过scikit-learn进行非监督学习<br>
-6.计算聚类中心关联词语<br>
-7.可视化聚类结果<br>
-
-其他说明：在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
-
-``` python
 from TextClustering.TextClustering import TextClustering
 import pandas as pd
 import os
@@ -83,25 +53,3 @@ model.show_decomposition(style='italic',
                          textsize=20,
                          savepath=DIR + '/TextClustering/picture/try2.png',
                          show=True)
-```
-可视化结果<br>
-
-带背景色<br>
-![try1](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/try1.png)<br>
-
-不带背景色<br>
-![try2](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/try2.png)<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
