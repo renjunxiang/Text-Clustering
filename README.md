@@ -13,7 +13,7 @@ scikit-learn=0.19.1<br>
 
 
 ## 项目介绍
-利用非监督学习的方法进行文本聚类及可视化，从而实现探索功能，是对上一个项目Sentiment-analysis的补充。
+利用非监督学习的方法进行文本聚类及可视化，从而实现探索功能，是对上一个项目Sentiment-analysis的补充。TextClustering已封装为模块，可以直接使用。
 
 ## 用法简介
 该模块包含：<br>
@@ -25,8 +25,6 @@ scikit-learn=0.19.1<br>
 6.计算聚类中心关联词语<br>
 7.可视化聚类结果<br>
 
-其他说明：在训练集很小的情况下，sklearn的概率输出predict_prob会不准。目前发现，SVM会出现所有标签概率一样，暂时没看源码，猜测是离超平面过近不计算概率，predict不会出现这个情况。
-
 ``` python
 from TextClustering.TextClustering import TextClustering
 import pandas as pd
@@ -37,13 +35,15 @@ DIR = os.path.dirname(__file__)
 texts = ['涛哥喜欢吃苹果',
          '涛哥讨厌吃苹果',
          '涛哥非常喜欢吃苹果',
-         '涛哥非常讨厌吃苹果']  # creat model
+         '涛哥非常讨厌吃苹果']  
+
+# creat model
 model = TextClustering(texts=texts)
 
 # cut sentences
 model.text_cut()
 
-# creat word2vec
+# load word2vec
 model.load_vocab_word2vec(DIR + '/TextClustering/models/vocab_word2vec.model')
 
 # creat wordmatrix
