@@ -130,7 +130,7 @@ model.load_vocab_word2vec(DIR + '/TextClustering/models/vocab_word2vec.model')
 
 # creat wordmatrix
 model.word2matrix(method='frequency', top=200)
-print('similiar matrix:\n',
+print('word_matrix:\n',
       pd.DataFrame(model.word_matrix,
                    columns=model.word_top,
                    index=model.word_top))
