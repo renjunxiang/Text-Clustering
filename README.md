@@ -166,6 +166,8 @@ model.show_decomposition(style='italic',
                          savepath=DIR + '/TextClustering/picture/try2.png',
                          show=True)
 ```
+![result](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/result.png)<br>
+
 可视化结果<br>
 
 带背景色<br>
