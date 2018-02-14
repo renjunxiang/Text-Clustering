@@ -52,7 +52,7 @@ model.word2matrix(method='vector', top=200, similar_n=10)
 # 用词频
 model.word2matrix(method='frequency', top=200)
 # 用于聚类的矩阵，共现矩阵或者词向量矩阵
-model.word_matrix = word_matrix
+model.word_matrix
 # 高频词
 model.word_top
 # 按词频排序的全部词语
