@@ -17,8 +17,9 @@ scikit-learn=0.19.1<br>
 
 ## 用法简介
 该模块包含：<br>
-### 1.创建模型
+### 1.导入模块，创建模型
 ``` python
+from TextClustering.TextClustering import TextClustering
 model = TextClustering(texts=texts)
 ```
 
