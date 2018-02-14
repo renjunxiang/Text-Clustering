@@ -20,8 +20,8 @@ class TextClustering():
                  texts=None):
         self.texts = texts
 
-    def text_cut(self, stopwords_path=None, ):
-        if stopwords_path is not None:
+    def text_cut(self, stopwords_path=None, stopwords=None):
+        if stopwords is None and stopwords_path is not None:
             with open(stopwords_path, 'r', encoding='utf-8') as f:
                 stopwords = f.read().splitlines()
         texts = self.texts
@@ -31,7 +31,7 @@ class TextClustering():
         for one_text in texts:
             text_cut = [word for word in jieba.lcut(one_text) if word != ' ']  # 每句话分词
             texts_cut.append(text_cut)
-            if stopwords_path is not None:
+            if stopwords is not None:
                 for word in text_cut:
                     if word not in stopwords:
                         word_freq[word] += 1  # 去除停用词，计算词频
@@ -129,18 +129,19 @@ class TextClustering():
         self.model, self.labels = clustering(X=X,
                                              model_name=model_name,
                                              n_clusters=n_clusters)
-    def get_cluster_similar_words(self):
-        words_similar=self.words_similar
-        labels=self.labels
-        word_top=self.word_top
 
-        cluster_result = pd.DataFrame({'word':word_top,'labels':labels})
+    def get_cluster_similar_words(self):
+        words_similar = self.words_similar
+        labels = self.labels
+        word_top = self.word_top
+
+        cluster_result = pd.DataFrame({'word': word_top, 'labels': labels})
         cluster_result_similar = pd.merge(cluster_result,
-                                   words_similar.iloc[:, 0:2],
-                                   left_on='word', right_on='word')
-        group=cluster_result_similar.groupby('labels')
-        cluster_similar_words=group['similar'].value_counts()
-        self.cluster_similar_words=pd.DataFrame(cluster_similar_words)
+                                          words_similar.iloc[:, 0:2],
+                                          left_on='word', right_on='word')
+        group = cluster_result_similar.groupby('labels')
+        cluster_similar_words = group['similar'].value_counts()
+        self.cluster_similar_words = pd.DataFrame(cluster_similar_words)
 
     def show_decomposition(self,
                            background=False,

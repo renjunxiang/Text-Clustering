@@ -22,9 +22,10 @@ scikit-learn=0.19.1<br>
 model = TextClustering(texts=texts)
 ```
 
-### 2.通过结巴分词，计算词频
+### 2.通过结巴分词，计算词频，加入停用词将会增加计算时间
 ``` python
-model.text_cut(stopwords_path=None)
+# stopwords是一个列表，也可以stopwords_path作为停用词的路径（.txt文档，每个停用词一行）
+model.text_cut(stopwords=[' ','(',')'])
 # 分词后的结果
 model.texts_cut
 # 词频
@@ -72,6 +73,8 @@ model.decomposition_data
 model.clustering(X=model.word_matrix, model_name='KMeans', n_clusters=3)
 # 聚类结果
 model.labels
+# 聚类模型
+model.model
 ```
 
 ### 7.计算聚类中心关联词语
