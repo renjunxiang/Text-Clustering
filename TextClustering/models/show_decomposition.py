@@ -7,14 +7,14 @@ from TextClustering.models.colors import colors_all
 zhfont1 = matplotlib.font_manager.FontProperties(fname='C:\Windows\Fonts\simsun.ttc')
 
 
-def _show_decomposition(decomposition_data=None, label=None, classify=None,
-                        background=False, cluster=None, pixel=2,size=20,
+def _show_decomposition(decomposition_data=None, words=None, classify=None,
+                        background=False, cluster=None, pixel=2, size=20,
                         colors=None, textsize=20, style='italic',
-                        savepath=None,show=False):
+                        savepath=None, show=False):
     '''
     
     :param decomposition_data: 降维后数据
-    :param label: 文本
+    :param words: 文本
     :param classify: 聚类后标签
     :param background: 是否需要背景色
     :param cluster: 聚类的模型
@@ -26,14 +26,14 @@ def _show_decomposition(decomposition_data=None, label=None, classify=None,
     :return: 
     '''
     if colors is None:
-        label_n = len(np.unique(label))
+        label_n = cluster.n_clusters#聚类数
         colors = random.sample(colors_all.keys(), label_n)
     x = np.array([i[0] for i in decomposition_data])
     y = np.array([i[1] for i in decomposition_data])
     if background == False:
         plt.scatter(x=x, y=y, alpha=0)
         for i in range(len(decomposition_data)):
-            plt.text(x[i], y[i], label[i],
+            plt.text(x[i], y[i], words[i],
                      family='serif', style=style, ha='right', wrap=True,
                      color=colors[classify[i]], size=textsize,
                      fontproperties=zhfont1)
@@ -66,7 +66,7 @@ def _show_decomposition(decomposition_data=None, label=None, classify=None,
                      color=color,s=size)
 
         for i in range(len(decomposition_data)):
-            plt.text(x[i], y[i], label[i],
+            plt.text(x[i], y[i], words[i],
                      family='serif', style=style, ha='right', wrap=True,
                      color='black', size=textsize,
                      fontproperties=zhfont1)

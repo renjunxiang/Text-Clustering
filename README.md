@@ -67,6 +67,8 @@ model.words_similar
 model.decomposition()
 # 降维后的数据
 model.decomposition_data
+# pca模型
+model.pca
 ```
 
 ### 6.通过scikit-learn进行非监督学习
@@ -85,7 +87,7 @@ model.get_cluster_similar_words()
 model.cluster_similar_words
 ```
 
-### 8.可视化聚类结果<br>
+### 8.可视化聚类结果
 ``` python
 # 需要背景色，会对背景采用同样的模型聚类，展现聚类区间
 # color不给就会采用随机数从系统中选择，pixel为背景像素距离，越小越稠密计算时间越长，size为像素点大小，越大越稠密
@@ -167,15 +169,15 @@ model.show_decomposition(style='italic',
                          savepath=DIR + '/TextClustering/picture/try2.png',
                          show=True)
 ```
-![result](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/result.png)<br>
+![result](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/result.png)<br>
 
 可视化结果<br>
 
 带背景色<br>
-![try1](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/try1.png)<br>
+![try1](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/try1.png)<br>
 
 不带背景色<br>
-![try2](https://github.com/renjunxiang/Text-Clustering/blob/master/TextClustering/picture/try2.png)<br>
+![try2](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/try2.png)<br>
 
 
 

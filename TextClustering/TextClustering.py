@@ -168,7 +168,7 @@ class TextClustering():
         _show_decomposition(background=background,
                             cluster=model,
                             decomposition_data=decomposition_data,
-                            label=self.word_top,
+                            words=self.word_top,
                             classify=self.labels,
                             pixel=pixel,
                             size=size,
