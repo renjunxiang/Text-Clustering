@@ -179,7 +179,7 @@ model.show_decomposition(style='italic',
 不带背景色<br>
 ![try2](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/try2.png)<br>
 
-完整demo的部分可视化<br>
+## 详细demo的部分可视化结果<br>
 聚类数=3<br>
 ![3](https://github.com/renjunxiang/Text-Clustering/blob/master/demo/picture/cluster_3.png)<br>
 聚类数=10<br>
