@@ -109,7 +109,7 @@ model.show_decomposition(style='italic',
                          show=True)
 ```
 
-## 给出一个demo供参考
+## 一个简单的demo供参考，详细的demo请参考demo文件夹内容
 ``` python
 from TextClustering.TextClustering import TextClustering
 import pandas as pd
