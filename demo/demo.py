@@ -15,21 +15,32 @@ DIR = os.path.dirname(__file__)
 # driver = webdriver.Firefox(firefox_profile=profile)
 # driver.get("http://www.xqishu.com/dushi/yineng/index.html")
 #
-# titles=[]
-# texts=[]
-# for i in range(1,200):
-#     onepage_title = driver.find_elements_by_xpath("//div[@class='s']")  # 基本信息
-#     title=[[k.split('：')[1] for k in np.array(j.text.split('\n'))[[0,1,3]]] for j in onepage_title]
-#     titles+=title
+# infoes = []
+# describtions = []
+# titles = []
+# urls = []
+# for i in range(0, 200):
+#     onepage_title = driver.find_elements_by_xpath("//div[@class='listBox']/ul/li/a")
+#     titles += [j.text for j in onepage_title]
 #
-#     onepage_texts = driver.find_elements_by_xpath("//div[@class='u']")  # 内容简介
-#     texts += [j.text for j in onepage_texts]
+#     onepage_url = driver.find_elements_by_xpath("//div[@class='listBox']/ul/li/a")
+#     urls += [j.get_attribute('href') for j in onepage_title]
+#
+#     onepage_info = driver.find_elements_by_xpath("//div[@class='s']")  # 基本信息
+#     info = [[k.split('：')[1] for k in np.array(j.text.split('\n'))[[0, 1, 3]]] for j in onepage_info]
+#     infoes += info
+#
+#     onepage_describtion = driver.find_elements_by_xpath("//div[@class='u']")  # 内容简介
+#     describtions += [j.text for j in onepage_describtion]
 #     driver.find_elements_by_xpath("//div[@class='tspage']/a[text()='下一页']")[0].click()
 # driver.close()
 #
-# info=pd.DataFrame(titles,columns=['author','size','update'])
-# info['summary']=texts
-# info.to_excel(DIR+'/data/raw.xlsx',index=False)
+# titles = pd.DataFrame(titles, columns=['title'])
+# urls = pd.DataFrame(urls, columns=['url'])
+# info_all = pd.DataFrame(infoes, columns=['author', 'size', 'update'])
+# info_all['summary'] = describtions
+# info_all = pd.concat([titles, urls, info_all], axis=1)
+# info_all.to_excel(DIR + '/data/raw.xlsx', index=False)
 ##############################################################################################################
 # read data
 data = pd.read_excel(DIR + '/data/raw.xlsx')
@@ -62,7 +73,7 @@ similar_matrix = model.words_similar
 
 # use pca to decomposition
 model.decomposition()
-print('前两个成分的特征占比:',model.pca.explained_variance_ratio_[0:2].sum())
+print('前两个成分的特征占比:', model.pca.explained_variance_ratio_[0:2].sum())
 
 result = pd.DataFrame({'word': model.word_top})
 word_top_freq = [model.word_freq[i] for i in model.word_top]
