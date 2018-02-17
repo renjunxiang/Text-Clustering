@@ -1,13 +1,14 @@
 # Text-Clustering
 # 文本聚类
 [![](https://img.shields.io/badge/Python-3.5-blue.svg)](https://www.python.org/)
+![](https://img.shields.io/badge/license-MIT-green.svg)]<br>
 [![](https://img.shields.io/badge/pandas-0.21.0-brightgreen.svg)](https://pypi.python.org/pypi/pandas/0.21.0)
 [![](https://img.shields.io/badge/numpy-1.13.1-brightgreen.svg)](https://pypi.python.org/pypi/numpy/1.13.1)
 [![](https://img.shields.io/badge/matplotlib-2.1.0-brightgreen.svg)](https://pypi.python.org/pypi/matplotlib/2.1.0)
 [![](https://img.shields.io/badge/jieba-0.39-brightgreen.svg)](https://pypi.python.org/pypi/jieba/0.39)
 [![](https://img.shields.io/badge/gensim-3.2.0-brightgreen.svg)](https://pypi.python.org/pypi/gensim/3.2.0)
 [![](https://img.shields.io/badge/scikit--learn-0.19.1-brightgreen.svg)](https://pypi.python.org/pypi/scikit-learn/0.19.1)
-![](https://img.shields.io/badge/license-MIT-green.svg)]
+
 ## 语言
 Python3.5<br>
 ## 依赖库
