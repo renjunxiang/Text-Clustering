@@ -5,7 +5,7 @@
 [![](https://img.shields.io/badge/matplotlib-2.1.0-green.svg)](https://pypi.python.org/pypi/matplotlib/2.1.0)
 [![](https://img.shields.io/badge/jieba-0.39-green.svg)](https://pypi.python.org/pypi/jieba/0.39)
 [![](https://img.shields.io/badge/gensim-3.2.0-green.svg)](https://pypi.python.org/pypi/gensim/3.2.0)
-[![](https://img.shields.io/badge/scikit-learn-0.19.1-green.svg)](https://pypi.python.org/pypi/scikit-learn/0.19.1)
+[![](https://img.shields.io/badge/scikit--learn-0.19.1-green.svg)](https://pypi.python.org/pypi/scikit-learn/0.19.1)
 ## 语言
 Python3.5<br>
 ## 依赖库
