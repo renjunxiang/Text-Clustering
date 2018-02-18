@@ -91,12 +91,15 @@ class TextClustering():
         word_top = word_sequence[0:top]
         if method == 'frequency':
             word_matrix = np.zeros(shape=[top, top])
-
-            for row_index in range(top):
-                for col_index in range(top):
-                    for one_text_cut in texts_cut:
-                        if (word_top[row_index] in one_text_cut) and (word_top[col_index] in one_text_cut):
-                            word_matrix[row_index, col_index] += 1
+            # for row_index in range(top):
+            #     for col_index in range(top):
+            #         for one_text_cut in texts_cut:
+            #             if (word_top[row_index] in one_text_cut) and (word_top[col_index] in one_text_cut):
+            #                 word_matrix[row_index, col_index] += 1
+            # 采用矢量化运算代替循环，速度大幅提高
+            for one_text_cut in texts_cut:
+                word_matrix1d=np.matrix(np.in1d(word_top,one_text_cut))
+                word_matrix+=word_matrix1d.T*word_matrix1d
         elif method == 'vector':
             vocab_word2vec = self.vocab_word2vec
             word_matrix = np.array([vocab_word2vec[i] for i in word_top])

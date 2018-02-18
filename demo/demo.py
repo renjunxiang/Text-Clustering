@@ -7,6 +7,8 @@ import time
 
 DIR = os.path.dirname(__file__)
 
+# DIR = 'D:\\github\\Text-Clustering\\demo'
+
 # # 从某小说网站爬部分数据
 # profile = webdriver.FirefoxProfile()
 # profile.set_preference('permissions.default.image', 2)  # 无图模式
@@ -88,7 +90,7 @@ for i in range(3, 21):
     model.cluster_similar_words.to_excel(writer, sheet_name='cluster_%d' % i, index=True)
     model.show_decomposition(style='italic',
                              background=True,
-                             pixel=0.01,
+                             pixel=None,
                              size=20,
                              textsize=20,
                              colors=None,

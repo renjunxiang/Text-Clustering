@@ -8,7 +8,7 @@ zhfont1 = matplotlib.font_manager.FontProperties(fname='C:\Windows\Fonts\simsun.
 
 
 def _show_decomposition(decomposition_data=None, words=None, classify=None,
-                        background=False, cluster=None, pixel=2, size=20,
+                        background=False, cluster=None, pixel=None, size=20,
                         colors=None, textsize=20, style='italic',
                         savepath=None, show=False):
     '''
@@ -18,7 +18,7 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
     :param classify: 聚类后标签
     :param background: 是否需要背景色
     :param cluster: 聚类的模型
-    :param pixel: 像素间距,越小越密,但增加时间
+    :param pixel: 像素间距,越小越密,但增加时间,默认间距为最长边的1/400
     :param size: 像素大小,越大越密,在pixel大的时候可以增大size
     :param colors: 染色
     :param textsize: 文本大小
@@ -41,6 +41,8 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
         cluster = cluster
         x_min, x_max = x.min() - 1, x.max() + 1
         y_min, y_max = y.min() - 1, y.max() + 1
+        if pixel is None:
+            pixel=max(x_max-x_min,y_max-y_min)/400.0
 
         '''
         x_min, x_max = decomposition_data[:, 0].min() - 1, decomposition_data[:, 0].max() + 1
