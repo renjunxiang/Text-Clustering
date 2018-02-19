@@ -20,8 +20,8 @@ scikit-learn=0.19.1<br>
 
 
 ## 项目介绍
-利用非监督学习的方法进行文本聚类及可视化，从而实现探索功能，是对上一个项目Sentiment-analysis的补充。<br>
-TextClustering文件夹可以直接作为模块使用。
+* 利用非监督学习的方法进行文本聚类及可视化，从而实现探索功能，是对上一个项目Sentiment-analysis的补充。<br>
+* TextClustering文件夹可以直接作为模块使用。
 
 ## 用法简介
 
