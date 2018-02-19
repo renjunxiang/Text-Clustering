@@ -25,7 +25,7 @@ TextClustering文件夹可以直接作为模块使用。
 
 ## 用法简介
 
-* 导入模块，创建模型
+** 导入模块，创建模型*
 ``` python
 from TextClustering.TextClustering import TextClustering
 model = TextClustering(texts=texts)
