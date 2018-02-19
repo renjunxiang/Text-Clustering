@@ -25,13 +25,13 @@ TextClustering文件夹可以直接作为模块使用。
 
 ## 用法简介
 
-* __导入模块，创建模型__
+* ### 导入模块，创建模型
 ``` python
 from TextClustering.TextClustering import TextClustering
 model = TextClustering(texts=texts)
 ```
 
-* 通过结巴分词，计算词频，加入停用词将会增加计算时间
+* ### 通过结巴分词，计算词频，加入停用词将会增加计算时间
 ``` python
 # stopwords是一个列表，也可以stopwords_path作为停用词的路径（.txt文档，每个停用词一行）
 model.text_cut(stopwords=[' ','(',')'])
@@ -41,7 +41,7 @@ model.texts_cut
 model.word_freq
 ```
 
-* 调用gensim模块创建词向量词包，如果要计算近似词语、用词向量矩阵聚类等，必须先做这步
+* ### 调用gensim模块创建词向量词包，如果要计算近似词语、用词向量矩阵聚类等，必须先做这步
 ``` python
 creat_vocab(sg=0,
             size=5,
@@ -70,7 +70,7 @@ model.word_sequence
 model.words_similar
 ```
 
-* 通过PCA降至二维，用于可视化，建议后续的聚类采用降维后的数据保持统一
+* ### 通过PCA降至二维，用于可视化，建议后续的聚类采用降维后的数据保持统一
 ``` python
 model.decomposition()
 # 降维后的数据
@@ -79,7 +79,7 @@ model.decomposition_data
 model.pca
 ```
 
-* 通过scikit-learn进行非监督学习
+* ### 通过scikit-learn进行非监督学习
 ``` python
 model.clustering(X=model.word_matrix, model_name='KMeans', n_clusters=3)
 # 聚类结果
@@ -88,14 +88,14 @@ model.labels
 model.model
 ```
 
-* 计算聚类中心关联词语
+* ### 计算聚类中心关联词语
 ``` python
 model.get_cluster_similar_words()
 # 关联词语
 model.cluster_similar_words
 ```
 
-* 可视化聚类结果
+* ### 可视化聚类结果
 ``` python
 # 需要背景色，会对背景采用同样的模型聚类，展现聚类区间
 # color不给就会采用随机数从系统中选择，pixel为背景像素距离，越小越稠密计算时间越长，size为像素点大小，越大越稠密
