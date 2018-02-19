@@ -183,18 +183,18 @@ model.show_decomposition(style='italic',
 
 可视化结果<br>
 
-带背景色<br>
+* __带背景色__<br>
 ![try1](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/try1.png)<br>
 
-不带背景色<br>
+* __不带背景色__<br>
 ![try2](https://github.com/renjunxiang/Text-Clustering/blob/master/picture/try2.png)<br>
 
 ## 详细demo的部分可视化结果<br>
-聚类数=3<br>
+* __聚类数=3__<br>
 ![3](https://github.com/renjunxiang/Text-Clustering/blob/master/demo/picture/cluster_3.png)<br>
-聚类数=10<br>
+* __聚类数=10__<br>
 ![10](https://github.com/renjunxiang/Text-Clustering/blob/master/demo/picture/cluster_10.png)<br>
-聚类数=20<br>
+* __聚类数=20__<br>
 ![20](https://github.com/renjunxiang/Text-Clustering/blob/master/demo/picture/cluster_20.png)<br>
 
 
