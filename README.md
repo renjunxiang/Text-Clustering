@@ -31,9 +31,9 @@ from TextClustering.TextClustering import TextClustering
 model = TextClustering(texts=texts)
 ```
 
-* ### 通过结巴分词，计算词频，加入停用词将会增加计算时间
+* ### 通过结巴分词并计算词频
 ``` python
-# stopwords是一个列表，也可以stopwords_path作为停用词的路径（.txt文档，每个停用词一行）
+# stopwords是一个列表，也可以stopwords_path作为停用词的路径（.txt文档，每个停用词一行），加入停用词将会增加计算时间
 model.text_cut(stopwords=[' ','(',')'])
 # 分词后的结果
 model.texts_cut
@@ -41,8 +41,9 @@ model.texts_cut
 model.word_freq
 ```
 
-* ### 调用gensim模块创建词向量词包，如果要计算近似词语、用词向量矩阵聚类等，必须先做这步
+* ### 调用gensim模块创建词向量词包
 ``` python
+# 如果要计算近似词语、用词向量矩阵聚类等，必须先做这步
 creat_vocab(sg=0,
             size=5,
             window=5,
@@ -70,8 +71,9 @@ model.word_sequence
 model.words_similar
 ```
 
-* ### 通过PCA降至二维，用于可视化，建议后续的聚类采用降维后的数据保持统一
+* ### PCA降至二维
 ``` python
+# 通过PCA降至二维，用于可视化，建议后续的聚类采用降维后的数据保持统一
 model.decomposition()
 # 降维后的数据
 model.decomposition_data
