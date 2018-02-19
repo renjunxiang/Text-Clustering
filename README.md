@@ -55,7 +55,7 @@ model.load_vocab_word2vec('/TextClustering/models/vocab_word2vec.model')
 model.vocab_word2vec
 ```
 
-* 构建高频词的维度矩阵
+* ### 构建高频词的维度矩阵
 ``` python
 # 用词向量，可以计算每个高频词最相似的词语
 model.word2matrix(method='vector', top=200, similar_n=10)
