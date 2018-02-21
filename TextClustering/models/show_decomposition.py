@@ -26,7 +26,7 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
     :return: 
     '''
     if colors is None:
-        label_n = cluster.n_clusters#聚类数
+        label_n = cluster.n_clusters  # 聚类数
         colors = random.sample(colors_all.keys(), label_n)
     x = np.array([i[0] for i in decomposition_data])
     y = np.array([i[1] for i in decomposition_data])
@@ -42,7 +42,7 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
         x_min, x_max = x.min() - 1, x.max() + 1
         y_min, y_max = y.min() - 1, y.max() + 1
         if pixel is None:
-            pixel=max(x_max-x_min,y_max-y_min)/400.0
+            pixel = max(x_max - x_min, y_max - y_min) / 400.0
 
         '''
         x_min, x_max = decomposition_data[:, 0].min() - 1, decomposition_data[:, 0].max() + 1
@@ -57,15 +57,17 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
         xx = np.arange(x_min, x_max, pixel)
         yy = np.arange(y_min, y_max, pixel)
 
-        background_x = np.array(list(xx) * len(yy))
-        background_y = np.array(list(yy) * len(xx))
-        background = [[background_x[i], background_y[i]] for i in range(len(background_x))]
+        background_x = list(xx) * len(yy)
+        background_y = list(yy) * len(xx)
+        background = np.c_[background_x, background_y]
+        background_x = np.array(background_x)
+        background_y = np.array(background_y)
         background_label = cluster.predict(background)
 
         for n, color in enumerate(colors):
             plt.scatter(background_x[background_label == n],
-                     background_y[background_label == n],
-                     color=color,s=size)
+                        background_y[background_label == n],
+                        color=color, s=size)
 
         for i in range(len(decomposition_data)):
             plt.text(x[i], y[i], words[i],
@@ -73,5 +75,5 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
                      color='black', size=textsize,
                      fontproperties=zhfont1)
     plt.savefig(savepath)
-    if show==True:
+    if show == True:
         plt.show()

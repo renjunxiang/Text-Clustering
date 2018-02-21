@@ -21,6 +21,8 @@ class TextClustering():
         self.texts = texts
 
     def text_cut(self, stopwords_path=None, stopwords=None):
+        if stopwords_path == 'default':
+            stopwords_path=DIR+'/transform/stopwords.txt'
         if stopwords is None and stopwords_path is not None:
             with open(stopwords_path, 'r', encoding='utf-8') as f:
                 stopwords = f.read().splitlines()
@@ -31,13 +33,19 @@ class TextClustering():
         for one_text in texts:
             text_cut = [word for word in jieba.lcut(one_text) if word != ' ']  # 每句话分词
             texts_cut.append(text_cut)
-            if stopwords is not None:
-                for word in text_cut:
-                    if word not in stopwords:
-                        word_freq[word] += 1  # 去除停用词，计算词频
-            else:
-                for word in text_cut:
-                    word_freq[word] += 1  # 计算词频
+            # if stopwords is not None:
+            #     for word in text_cut:
+            #         if word not in stopwords:
+            #             word_freq[word] += 1  # 去除停用词，计算词频
+            # else:
+            #     for word in text_cut:
+            #         word_freq[word] += 1  # 计算词频
+        for word in text_cut:
+            word_freq[word] += 1  # 计算词频
+        # 之前方法判断次数过多，采用下面的方式仅判断一次
+        if stopwords is not None:# 有停用词则剔除其词频
+            word_freq={word:word_freq[word] for word in word_freq if word not in stopwords}
+
         self.texts_cut = texts_cut
         self.word_freq = word_freq
 
@@ -148,7 +156,7 @@ class TextClustering():
 
     def show_decomposition(self,
                            background=False,
-                           pixel=2,
+                           pixel=None,
                            size=20,
                            colors=None,
                            textsize=20,
