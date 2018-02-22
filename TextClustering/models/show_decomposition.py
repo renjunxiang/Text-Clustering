@@ -74,6 +74,7 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
                      family='serif', style=style, ha='right', wrap=True,
                      color='black', size=textsize,
                      fontproperties=zhfont1)
-    plt.savefig(savepath)
+    if savepath is not None:
+        plt.savefig(savepath)
     if show == True:
         plt.show()
