@@ -22,11 +22,12 @@ class TextClustering():
 
     def text_cut(self, stopwords_path=None, stopwords=None):
         if stopwords_path == 'default':
-            stopwords_path=DIR+'/transform/stopwords.txt'
+            stopwords_path = DIR + '/transform/stopwords.txt'
         if stopwords is None and stopwords_path is not None:
             with open(stopwords_path, 'r', encoding='utf-8') as f:
                 stopwords = f.read().splitlines()
         texts = self.texts
+        self.stopwords = stopwords
 
         word_freq = defaultdict(int)
         texts_cut = []
@@ -40,11 +41,11 @@ class TextClustering():
             # else:
             #     for word in text_cut:
             #         word_freq[word] += 1  # 计算词频
-        for word in text_cut:
-            word_freq[word] += 1  # 计算词频
+            for word in text_cut:
+                word_freq[word] += 1  # 计算词频
         # 之前方法判断次数过多，采用下面的方式仅判断一次
-        if stopwords is not None:# 有停用词则剔除其词频
-            word_freq={word:word_freq[word] for word in word_freq if word not in stopwords}
+        if stopwords is not None:  # 有停用词则剔除其词频
+            word_freq = {word: word_freq[word] for word in word_freq if word not in stopwords}
 
         self.texts_cut = texts_cut
         self.word_freq = word_freq
@@ -106,8 +107,17 @@ class TextClustering():
             #                 word_matrix[row_index, col_index] += 1
             # 采用矢量化运算代替循环，速度大幅提高
             for one_text_cut in texts_cut:
-                word_matrix1d=np.matrix(np.in1d(word_top,one_text_cut))
-                word_matrix+=word_matrix1d.T*word_matrix1d
+                word_matrix1d = np.matrix(np.in1d(word_top, one_text_cut))
+                word_matrix += word_matrix1d.T * word_matrix1d
+            if similar_n is not None:
+                vocab_word2vec = self.vocab_word2vec
+                words_similar = []
+                for word in word_top:
+                    word_similar = vocab_word2vec.wv.most_similar(word, topn=similar_n)
+                    word_similar = [[word] + list(one_similar) for one_similar in word_similar]
+                    words_similar += word_similar
+                words_similar = pd.DataFrame(words_similar, columns=['word', 'similar', 'score'])
+                self.words_similar = words_similar
         elif method == 'vector':
             vocab_word2vec = self.vocab_word2vec
             word_matrix = np.array([vocab_word2vec[i] for i in word_top])
