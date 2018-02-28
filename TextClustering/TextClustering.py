@@ -20,7 +20,16 @@ class TextClustering():
                  texts=None):
         self.texts = texts
 
-    def text_cut(self, stopwords_path=None, stopwords=None):
+    def text_cut(self, stopwords_path=None, stopwords=None,
+                 wordlen_min=2, count_method='word'):
+        '''
+        
+        :param stopwords_path: 停用词路径
+        :param stopwords: 停用词列表，高优先级
+        :param wordlen_min: 词语最短长度
+        :param count_method: 词频计算方法，'word'词语出现的数量类似TF，'text'包含这个词语的文本数量类似IDF
+        :return: 
+        '''
         if stopwords_path == 'default':
             stopwords_path = DIR + '/transform/stopwords.txt'
         if stopwords is None and stopwords_path is not None:
@@ -29,7 +38,7 @@ class TextClustering():
         texts = self.texts
         self.stopwords = stopwords
 
-        word_freq = defaultdict(int)
+        word_freq_full = defaultdict(int)
         texts_cut = []
         for one_text in texts:
             text_cut = [word for word in jieba.lcut(one_text) if word != ' ']  # 每句话分词
@@ -37,18 +46,25 @@ class TextClustering():
             # if stopwords is not None:
             #     for word in text_cut:
             #         if word not in stopwords:
-            #             word_freq[word] += 1  # 去除停用词，计算词频
+            #             word_freq_full[word] += 1  # 去除停用词，计算词频
             # else:
             #     for word in text_cut:
-            #         word_freq[word] += 1  # 计算词频
-            for word in text_cut:
-                word_freq[word] += 1  # 计算词频
+            #         word_freq_full[word] += 1  # 计算词频
+            if count_method == 'word':
+                for word in text_cut:
+                    word_freq_full[word] += 1  # 计算词语出现数量
+            else:
+                for word in set(text_cut):
+                    word_freq_full[word] += 1  # 计算包含词语的文本数量
         # 之前方法判断次数过多，采用下面的方式仅判断一次
         if stopwords is not None:  # 有停用词则剔除其词频
-            word_freq = {word: word_freq[word] for word in word_freq if word not in stopwords}
+            word_freq = {}
+            for word in word_freq_full:
+                if word not in stopwords and len(word) >= wordlen_min:
+                    word_freq.update({word: word_freq_full[word]})
 
         self.texts_cut = texts_cut
-        self.word_freq = word_freq
+        self.word_freq = word_freq_full
 
     def creat_vocab(self,
                     sg=0,
@@ -84,12 +100,11 @@ class TextClustering():
         '''
         self.vocab_word2vec = word2vec.Word2Vec.load(vocab_loadpath)
 
-    def word2matrix(self, method='vector', top=50, similar_n=None):
+    def word2matrix(self, method='vector', top=50):
         '''
         根据文本生成数据集词库的矩阵供聚类使用
         :param method: frequency or vector
         :param top: number of freq words
-        :param similar_n: number of similar words
         :return: 
         '''
         texts_cut = self.texts_cut
@@ -109,29 +124,28 @@ class TextClustering():
             for one_text_cut in texts_cut:
                 word_matrix1d = np.matrix(np.in1d(word_top, one_text_cut))
                 word_matrix += word_matrix1d.T * word_matrix1d
-            if similar_n is not None:
-                vocab_word2vec = self.vocab_word2vec
-                words_similar = []
-                for word in word_top:
-                    word_similar = vocab_word2vec.wv.most_similar(word, topn=similar_n)
-                    word_similar = [[word] + list(one_similar) for one_similar in word_similar]
-                    words_similar += word_similar
-                words_similar = pd.DataFrame(words_similar, columns=['word', 'similar', 'score'])
-                self.words_similar = words_similar
         elif method == 'vector':
             vocab_word2vec = self.vocab_word2vec
             word_matrix = np.array([vocab_word2vec[i] for i in word_top])
-            if similar_n is not None:
-                words_similar = []
-                for word in word_top:
-                    word_similar = vocab_word2vec.wv.most_similar(word, topn=similar_n)
-                    word_similar = [[word] + list(one_similar) for one_similar in word_similar]
-                    words_similar += word_similar
-                words_similar = pd.DataFrame(words_similar, columns=['word', 'similar', 'score'])
-                self.words_similar = words_similar
         self.word_matrix = word_matrix
         self.word_top = word_top
         self.word_sequence = word_sequence
+
+    def words_similar_cal(self, n=10):
+        '''
+        计算高频词的相关词语
+        :param n: number of similar words
+        :return: 
+        '''
+        word_top = self.word_top
+        vocab_word2vec = self.vocab_word2vec
+        words_similar = []
+        for word in word_top:
+            word_similar = vocab_word2vec.wv.most_similar(word, topn=n)
+            word_similar = [[word] + list(one_similar) for one_similar in word_similar]
+            words_similar += word_similar
+        words_similar = pd.DataFrame(words_similar, columns=['word', 'similar', 'score'])
+        self.words_similar = words_similar
 
     def decomposition(self, n_components=2):
         X = self.word_matrix

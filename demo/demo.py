@@ -58,7 +58,8 @@ for i in data['summary']:
 model = TextClustering(texts=texts)
 
 # cut sentences
-model.text_cut(stopwords_path=DIR + '/stopwords.txt')
+model.text_cut(stopwords_path=DIR + '/stopwords.txt',
+               wordlen_min=2, count_method='word')
 
 # creat word2vec(different data should creat its own word2vec)
 # model.creat_vocab(sg=0,
@@ -70,7 +71,10 @@ model.text_cut(stopwords_path=DIR + '/stopwords.txt')
 model.load_vocab_word2vec(DIR + '/models/vocab_word2vec.model')
 
 # creat wordmatrix
-model.word2matrix(method='vector', top=200, similar_n=10)
+model.word2matrix(method='vector', top=200)
+
+# calculate top words'similar
+model.words_similar_cal(n=10)
 similar_matrix = model.words_similar
 
 # use pca to decomposition
