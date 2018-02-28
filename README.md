@@ -57,16 +57,24 @@ model.vocab_word2vec
 
 * ### 构建高频词的维度矩阵
 ``` python
-# 用词向量，可以计算每个高频词最相似的词语
-model.word2matrix(method='vector', top=200, similar_n=10)
+# 用词向量
+model.word2matrix(method='vector', top=200)
 # 用词频
 model.word2matrix(method='frequency', top=200)
+高频词的关联词语
+model.words_similar
 # 用于聚类的矩阵，共现矩阵或者词向量矩阵
 model.word_matrix
 # 高频词
 model.word_top
 # 按词频排序的全部词语
 model.word_sequence
+```
+
+* ### 计算高频词的关联词语
+``` python
+# 依赖于词向量，在creat_vocab或load_vocab_word2vec后执行
+model.words_similar_cal(n=10)
 # 高频词的相似词语
 model.words_similar
 ```
