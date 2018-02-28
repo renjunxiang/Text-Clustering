@@ -62,9 +62,14 @@ class TextClustering():
             for word in word_freq_full:
                 if word not in stopwords and len(word) >= wordlen_min:
                     word_freq.update({word: word_freq_full[word]})
+        else:
+            word_freq = {}
+            for word in word_freq_full:
+                if len(word) >= wordlen_min:
+                    word_freq.update({word: word_freq_full[word]})
 
         self.texts_cut = texts_cut
-        self.word_freq = word_freq_full
+        self.word_freq = word_freq
 
     def creat_vocab(self,
                     sg=0,
