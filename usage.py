@@ -11,7 +11,7 @@ texts = ['涛哥喜欢吃苹果',
 model = TextClustering(texts=texts)
 
 # cut sentences
-model.text_cut()
+model.text_cut(wordlen_min=2, count_method='word')
 
 # creat word2vec
 model.load_vocab_word2vec(DIR + '/TextClustering/models/vocab_word2vec.model')
@@ -41,7 +41,7 @@ model.show_decomposition(style='italic',
                          size=20,
                          colors=['red', 'blue', 'green'],
                          textsize=20,
-                         savepath=DIR + '/TextClustering/picture/try1.png',
+                         # savepath=DIR + '/picture/try1.png',
                          show=True)
 
 
@@ -51,5 +51,5 @@ model.show_decomposition(style='italic',
                          size=20,
                          colors=['red', 'blue', 'green'],
                          textsize=20,
-                         savepath=DIR + '/TextClustering/picture/try2.png',
+                         # savepath=DIR + '/picture/try2.png',
                          show=True)

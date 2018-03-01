@@ -57,13 +57,12 @@ class TextClustering():
                 for word in set(text_cut):
                     word_freq_full[word] += 1  # 计算包含词语的文本数量
         # 之前方法判断次数过多，采用下面的方式仅判断一次
+        word_freq = {}
         if stopwords is not None:  # 有停用词则剔除其词频
-            word_freq = {}
             for word in word_freq_full:
                 if word not in stopwords and len(word) >= wordlen_min:
                     word_freq.update({word: word_freq_full[word]})
         else:
-            word_freq = {}
             for word in word_freq_full:
                 if len(word) >= wordlen_min:
                     word_freq.update({word: word_freq_full[word]})

@@ -78,3 +78,4 @@ def _show_decomposition(decomposition_data=None, words=None, classify=None,
         plt.savefig(savepath)
     if show == True:
         plt.show()
+    plt.close()
