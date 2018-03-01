@@ -145,13 +145,14 @@ texts = ['涛哥喜欢吃苹果',
 model = TextClustering(texts=texts)
 
 # cut sentences
-model.text_cut()
+model.text_cut(wordlen_min=2, count_method='word')
 
 # load word2vec
 model.load_vocab_word2vec(DIR + '/TextClustering/models/vocab_word2vec.model')
 
 # creat wordmatrix
 model.word2matrix(method='frequency', top=200)
+model.words_similar_cal(n=10)
 print('word_matrix:\n',
       pd.DataFrame(model.word_matrix,
                    columns=model.word_top,
